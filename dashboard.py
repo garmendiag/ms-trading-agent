@@ -459,7 +459,7 @@ def create_signal_chart(data):
             x=bullish_signals.index,
             y=bullish_signals['confidence'],
             mode='markers',
-            name='Bullish Signals'),
+            name='Bullish Signals',
             marker=dict(
                 color=COLORS['bullish'],
                 size=12,
@@ -467,5 +467,36 @@ def create_signal_chart(data):
                 line=dict(width=1, color='black')
             ),
             text=bullish_signals['signal'],
-          hovertemplate='%{text}<br>{Confidence: %} <response clipped> <NOTE>To save on context only part of this file has been shown to you. You should retry this tool after you have searched inside the file with `grep -n` in order to find the line numbers of what you are looking for.</NOTE>
-      )
+            hovertemplate='%{text}<br>Confidence: %{y:.2f}<extra></extra>'
+        )
+    )
+    
+    # Add bearish signals (assuming this follows)
+    fig.add_trace(
+        go.Scatter(
+            x=bearish_signals.index,
+            y=bearish_signals['confidence'],
+            mode='markers',
+            name='Bearish Signals',
+            marker=dict(
+                color=COLORS['bearish'],
+                size=12,
+                symbol='triangle-down',
+                line=dict(width=1, color='black')
+            ),
+            text=bearish_signals['signal'],
+            hovertemplate='%{text}<br>Confidence: %{y:.2f}<extra></extra>'
+        )
+    )
+    
+    # Update layout
+    fig.update_layout(
+        title='Trading Signals',
+        xaxis_title='Date',
+        yaxis_title='Confidence',
+        height=300,
+        margin=dict(l=50, r=50, t=50, b=50),
+        hovermode='closest'
+    )
+    
+    return fig
