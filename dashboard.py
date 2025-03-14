@@ -456,10 +456,10 @@ def create_signal_chart(data):
     # Add bullish signals
     fig.add_trace(
         go.Scatter(
-    x=data['timestamp'],
-    y=data['value'],
-    mode='lines',
-    name='Some Name',
+            x=bullish_signals.index,
+            y=bullish_signals['confidence'],
+            mode='markers',
+            name='Bullish Signals'),
             marker=dict(
                 color=COLORS['bullish'],
                 size=12,
